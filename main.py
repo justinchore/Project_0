@@ -26,11 +26,11 @@ def main():
                 #str(email)
                 #str(password)
                 #float(balance)
-                #Create the account class
                 account_info_dict = create_account()
+                #Create user class
                 new_account = Account(account_info_dict)
-                
-
+                print('Account successfully created. Please log in!')                
+                user_selection = 1
             case 3: 
                 print('exit')
                 run_program = False

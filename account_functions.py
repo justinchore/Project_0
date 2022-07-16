@@ -5,31 +5,32 @@
 #float(balance)
 def create_account():
     account_info = {}
-    print('First Name: ')
+    print('First Name: ', end='')
     first_name = input()
     #validation here
     #place into account_info
-    account_info[first_name] = first_name
-    print('Last Name: ')
+    account_info["first_name"] = first_name
+    print('Last Name: ', end='')
     last_name = input()
     #validation here
     #place into account_info
-    account_info[last_name] = first_name
-    print('Email Address: ')
+    account_info["last_name"] = last_name
+    print('Email: ', end='')
     email = input()
     #validation here
     #place into account_info
-    account_info[email] = first_name
-    print('Password: ')
+    account_info["email"] = email
+    print('Password: ', end='')
     password = input()
     #validation here
     #place into account_info
-    account_info[password] = first_name
-    print('Initial Balance Deposit: ')
+    account_info["password"] = password
+    print('Initial Balance Deposit: ', end='')
     balance = input()
-    #validation here
+    #validation/normalize here
     #place into account_info
-    account_info[balance] = first_name
+    account_info["balance"] = balance
     #show user information, ask for confirmation
     #save account! (Here or main?)
+    print(account_info)
     return account_info
