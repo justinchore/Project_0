@@ -8,6 +8,7 @@ accounts =  {'accounts': [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 
 
 def main():
     bank = Bank()
+    current_account_class = None
     print(bank.is_running, bank.logged_in)
     while bank.is_running and not bank.logged_in:
         print('Welcome to Foundation Bank!')
@@ -23,6 +24,7 @@ def main():
                 print(bank.logged_in)
                 login_result = bank.log_in(accounts) #returns an account if successful
                 if login_result != False:
+                    current_account_class = Account(login_result)
                     bank.set_logged_in()
                     bank.set_logged_in_account = login_result
                 print(bank.logged_in)
@@ -59,6 +61,7 @@ def main():
             case 1:
                 print(bank.logged_in_account)
                 print('You have chosen to deposit')
+                print(f'You currently have ${(current_account_class.balance)}')
             case 2: 
                 print(bank.logged_in_account)
                 print('You have chosen to withdraw')

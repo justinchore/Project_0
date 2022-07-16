@@ -57,7 +57,7 @@ class Bank:
         #validation/normalize here
         #place into account_info
         account_info["balance"] = balance
-        #show user information, ask for confirmation
+        #show user information, ask for confirmation 
         #save account! (Here or main?)
         print(account_info)
         return account_info
