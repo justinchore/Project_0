@@ -48,3 +48,12 @@ class Bank:
         #save account! (Here or main?)
         print(account_info)
         return account_info
+    
+    def log_in(self, accounts_list, email, password):
+        #[{}, {}, {}]
+        for acc in accounts_list:
+
+        #iterate through the list of accounts
+        #if email is not in account ->print user does not exist
+        #if email is in account, check password of that dictionary! 
+        #if password == password, then toggle logged in, set current_account to the dictionary.
