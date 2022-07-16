@@ -1,4 +1,6 @@
-accounts = {} #Get Data here
+import Account
+
+accounts = [] #Get Data here
 
 def main():
     run_program = True
@@ -15,7 +17,15 @@ def main():
             case 1:
                 print('Log in to your account')
             case 2:
-                print('Create an account')
+                print('Create an account. Minimum initial deposit amount: $25')
+                #call create_account:
+                #str(first_name)
+                #str(last_name)
+                #str(email)
+                #str(password)
+                #float(balance)
+                
+
             case 3: 
                 print('exit')
                 run_program = False
