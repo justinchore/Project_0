@@ -3,7 +3,8 @@
 #str(email)
 #str(password)
 #float(balance)
-def create_account():
+
+def create_account(): ##Should this function be inside the class?
     account_info = {}
     print('First Name: ', end='')
     first_name = input()
@@ -34,3 +35,4 @@ def create_account():
     #save account! (Here or main?)
     print(account_info)
     return account_info
+
