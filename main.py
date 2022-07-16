@@ -3,7 +3,7 @@ from Bank import Bank
 
 
 # accounts = [] #Get Data here
-accounts =  [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': '100'}]
+accounts =  {'accounts': [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': '100'}]}
 
 
 def main():
@@ -64,14 +64,14 @@ def main():
                 print('You have chosen to withdraw')
             case 3: 
                 print('You have chosen to log out and exit')
+                #sets logged in to False
                 bank.set_logged_in()
+                #sets the logged in user dictionary value to none
                 bank.set_logged_in_account = None
+                #terminates program
                 bank.set_is_running()
-                print(bank.is_running)
+        
             
-
-
-
 
     return None
     
