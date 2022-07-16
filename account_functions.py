@@ -14,20 +14,22 @@ def create_account():
     last_name = input()
     #validation here
     #place into account_info
-    account_info[first_name] = first_name
+    account_info[last_name] = first_name
     print('Email Address: ')
     email = input()
     #validation here
     #place into account_info
-    account_info[first_name] = first_name
-    print('Initial Balance Deposit: ')
+    account_info[email] = first_name
+    print('Password: ')
+    password = input()
     #validation here
     #place into account_info
-    account_info[first_name] = first_name
+    account_info[password] = first_name
+    print('Initial Balance Deposit: ')
     balance = input()
     #validation here
     #place into account_info
-    account_info[first_name] = first_name
+    account_info[balance] = first_name
     #show user information, ask for confirmation
     #save account! (Here or main?)
     return account_info

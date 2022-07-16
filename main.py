@@ -1,4 +1,4 @@
-import Account
+from Account import Account
 from account_functions import create_account
 
 
@@ -27,7 +27,8 @@ def main():
                 #str(password)
                 #float(balance)
                 #Create the account class
-                new_account = Account(create_account())
+                account_info_dict = create_account()
+                new_account = Account(account_info_dict)
                 
 
             case 3: 
