@@ -2,8 +2,9 @@ from Account import Account
 from Bank import Bank
 
 
-accounts = [] #Get Data here
-# [{}, {}, {}, {}]
+# accounts = [] #Get Data here
+accounts =  [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': '100'}]
+
 
 def main():
     bank = Bank()
@@ -19,7 +20,12 @@ def main():
 
         match user_selection:
             case 1:
-                print('Log in to your account')
+                print(bank.logged_in)
+                login_result = bank.log_in(accounts) #returns an account if successful
+                if login_result != False:
+                    bank.set_logged_in()
+                    bank.set_logged_in_account = login_result
+                print(bank.logged_in)
 
             case 2:
                 print('Create an account. Minimum initial deposit amount: $25')
@@ -34,15 +40,36 @@ def main():
                 accounts.append(new_account_dict)
                 print('Account successfully created. You are now logged in!')                
                 bank.set_logged_in()
-                print(bank.logged_in)
+                bank.logged_in_account = new_account_dict
+                # print(bank.logged_in)
             case 3: 
                 print('exit')
                 bank.set_is_running()
                 return None
 
-    # while run_program and logged_in:
-    #     print('What would you like to do?')
-    #     print('Deposit Money')
+    while bank.is_running == True and bank.logged_in == True:
+        print('What would you like to do?')
+        print('1.Deposit')
+        print('2.Withdraw')
+        print('3.Log out and Exit Program')
+        
+        user_selection = int(input())
+
+        match user_selection:
+            case 1:
+                print(bank.logged_in_account)
+                print('You have chosen to deposit')
+            case 2: 
+                print(bank.logged_in_account)
+                print('You have chosen to withdraw')
+            case 3: 
+                print('You have chosen to log out and exit')
+                bank.set_logged_in()
+                bank.set_logged_in_account = None
+                bank.set_is_running()
+                print(bank.is_running)
+            
+
 
 
 

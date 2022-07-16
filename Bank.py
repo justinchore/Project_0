@@ -2,6 +2,7 @@ class Bank:
     def __init__(self):
         self._is_running = True
         self._logged_in = False
+        self._logged_in_account = None
     
     @property
     def is_running(self):
@@ -14,8 +15,20 @@ class Bank:
     def logged_in(self):
         return self._logged_in
     
+    @property
+    def logged_in_account(self):
+        return self._logged_in_account
+    
+    def set_logged_in_account(self, account):
+        self._logged_in_account = account
+
+    
     def set_logged_in(self):
-        self._logged_in = not self._logged_in 
+        # self._logged_in = not self._logged_in 
+        if self.logged_in == True:
+            self._logged_in = False
+        else:
+            self._logged_in = True
     
     def create_account(self):
         account_info = {}
@@ -49,10 +62,27 @@ class Bank:
         print(account_info)
         return account_info
     
-    def log_in(self, accounts_list, email, password):
+    def log_in(self, accounts_list):
         #[{}, {}, {}]
-        for acc in accounts_list:
+        print('Log in to your account')
+        print('Email: ', end='' )
+        input_email = input()
+        print('Password: ', end='')
+        input_password = input()
 
+        for acc in accounts_list:
+            if input_email in acc.values():
+                if acc["password"] == input_password:
+                    print('You have successfully logged in to your account.')
+                    return acc
+                else:
+                    print('Log in failed. Check your credentials and try again')
+                    return False
+            else:
+                print('Log in failed. Check your credentials and try again')
+                return False
+        
+            
         #iterate through the list of accounts
         #if email is not in account ->print user does not exist
         #if email is in account, check password of that dictionary! 
