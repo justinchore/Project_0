@@ -1,4 +1,6 @@
 import Account
+from account_functions import create_account
+
 
 accounts = [] #Get Data here
 
@@ -24,6 +26,8 @@ def main():
                 #str(email)
                 #str(password)
                 #float(balance)
+                #Create the account class
+                new_account = Account(create_account())
                 
 
             case 3: 
