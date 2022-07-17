@@ -53,7 +53,7 @@ class Bank:
         #place into account_info
         account_info["password"] = password
         print('Initial Balance Deposit: ', end='')
-        balance = input()
+        balance = int(input())
         #validation/normalize here
         #place into account_info
         account_info["balance"] = balance
@@ -102,6 +102,7 @@ Check for the existence of account when creating
 Validations
 Datetime -> field for account created at
 JSON
+Generate IDs with uuid4()
 Hash Password/Hide Password -> token? 
 Colorama
 '''
