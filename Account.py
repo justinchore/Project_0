@@ -35,12 +35,21 @@ class Account:
         self._balance += amount
 
     def deposit(self):
-        print(f'You currently have ${self.balance} in your balance. Enter the amount for depost: ', end="")
+        print(f'You currently have ${self.balance} in your balance. Enter the amount for deposit: ', end="")
         deposit_amount = int(input())
         #validate
         self.set_balance(deposit_amount)
         #add time thing here "...depositing to your account.."
         print(f'Deposit successful. Your new balance is {self.balance}')
+    
+    def withdraw(self):
+        print(f'You currently have ${self.balance} in your balance. Enter the amount for withdrawl: ', end="")
+        withdrawl_amount = int(input())
+        #validate
+        self.set_balance(withdrawl_amount * -1)
+        #add timing thing here "...withdrawing from your account.."
+        print(f'Withdrawl successful. Your new balance is {self.balance}')
+
 
 
     def __str__(self):

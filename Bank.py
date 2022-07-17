@@ -69,6 +69,7 @@ class Bank:
     
     def log_in(self, accounts_list):
         #[{}, {}, {}]
+        print('Accounts List: ', accounts_list)
         print('Log in to your account')
         print('Email: ', end='' )
         input_email = input()
@@ -76,16 +77,18 @@ class Bank:
         input_password = input()
 
         for acc in accounts_list:
+            print(acc.values())
             if input_email in acc.values():
+                print(acc)
                 if acc["password"] == input_password:
                     print('You have successfully logged in to your account.')
                     return acc
                 else:
                     print('Log in failed. Check your credentials and try again')
                     return False
-            else:
-                print('Log in failed. Check your credentials and try again')
-                return False
+            
+        print('Log in failed. Check your credentials and try again')
+        return False
         
             
         #iterate through the list of accounts
