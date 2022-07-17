@@ -3,7 +3,7 @@ from Bank import Bank
 
 
 # accounts = [] #Get Data here
-accounts =  {'accounts': [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': '100'}]}
+accounts =  [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': '100'}]
 
 
 def main():
@@ -26,7 +26,7 @@ def main():
                 if login_result != False:
                     current_account_class = Account(login_result)
                     bank.set_logged_in()
-                    bank.set_logged_in_account = login_result
+                    bank.set_logged_in_account (current_account_class)
                 print(bank.logged_in)
 
             case 2:
@@ -38,11 +38,11 @@ def main():
                 # new_account = Account(account_info_dict)
                 #Save User
                 new_account_dict = bank.create_account()
-                new_account_class = Account(new_account_dict)
+                current_account_class = Account(new_account_dict)
                 accounts.append(new_account_dict)
                 print('Account successfully created. You are now logged in!')                
                 bank.set_logged_in()
-                bank.logged_in_account = new_account_dict
+                bank.set_logged_in_account(new_account_dict)
                 # print(bank.logged_in)
             case 3: 
                 print('exit')
@@ -59,9 +59,11 @@ def main():
 
         match user_selection:
             case 1:
-                print(bank.logged_in_account)
-                print('You have chosen to deposit')
-                print(f'You currently have ${(current_account_class.balance)}')
+                print(current_account_class)
+                current_account_class.deposit()
+                #save file
+                
+
             case 2: 
                 print(bank.logged_in_account)
                 print('You have chosen to withdraw')
