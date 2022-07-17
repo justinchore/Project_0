@@ -9,6 +9,27 @@ class Account:
     @property
     def balance(self):
         return self._balance
+    
+    @property
+    def id(self):
+        return self._id
+    
+    @property
+    def first_name(self):
+        return self._first_name
+    
+    @property
+    def last_name(self):
+        return self._last_name
+    
+    @property
+    def email(self):
+        return self._email
+    
+    @property
+    def password(self):
+        return self._password
+    
 
     def set_balance(self, amount):
         self._balance += amount
@@ -20,7 +41,6 @@ class Account:
         self.set_balance(deposit_amount)
         #add time thing here "...depositing to your account.."
         print(f'Deposit successful. Your new balance is {self.balance}')
-
 
 
     def __str__(self):

@@ -21,7 +21,7 @@ def get_image_from_txt(filename):
     with open(filename, "r") as mytextimage:
         for line in mytextimage:
             print(line, end='')
-       
+
 
 def main():
 
@@ -80,7 +80,7 @@ def main():
                 print(current_account_class)
                 current_account_class.deposit()
                 #save file
-                write_to_json(dict(current_account_class), accounts_list)
+                write_to_json(current_account_class.__dict__, accounts_list)
                
             case '2': 
                 print(bank.logged_in_account)
