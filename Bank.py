@@ -1,3 +1,6 @@
+import uuid
+import json
+
 class Bank:
     def __init__(self):
         self._is_running = True
@@ -32,6 +35,7 @@ class Bank:
     
     def create_account(self):
         account_info = {}
+        account_info["id"] = str(uuid.uuid4())
         print('First Name: ', end='')
         first_name = input()
         #validation here
@@ -57,6 +61,7 @@ class Bank:
         #validation/normalize here
         #place into account_info
         account_info["balance"] = balance
+        
         #show user information, ask for confirmation 
         #save account! (Here or main?)
         print(account_info)
@@ -100,6 +105,10 @@ Deposit
 Withdraw
 Check for the existence of account when creating
 Validations
+ - number check
+ - withdraw check
+ - email format check
+ - capitalize name 
 Datetime -> field for account created at
 JSON
 Generate IDs with uuid4()

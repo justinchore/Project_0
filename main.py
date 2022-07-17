@@ -1,14 +1,34 @@
 from Account import Account
 from Bank import Bank
+import json
 
 
-# accounts = [] #Get Data here
-accounts =  [{'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': 100}]
+# # accounts = [] #Get Data here
+# accounts =  ['id'first_name': 'Justin', 'last_name': 'Cho', 'email': 'justin@justin.com', 'password': 'password123', 'balance': 100}]
 
+def read_parse_json(): #returns a list of accounts
+    with open("bank.json", "r") as myfile:
+        return json.load(myfile)
+
+
+def write_to_json(account_dict, list):
+    with open("bank.json", "w") as myfile:
+        list.append(account_dict)
+        print(list)
+        myfile.write(json.dumps(list))
+
+def get_image_from_txt(filename):
+    with open(filename, "r") as mytextimage:
+        for line in mytextimage:
+            print(line, end='')
+       
 
 def main():
+
+    print(get_image_from_txt('bank-banner.txt'))
     bank = Bank()
     current_account_class = None
+    accounts_list = read_parse_json()
     print(bank.is_running, bank.logged_in)
     while bank.is_running and not bank.logged_in:
         print('Welcome to Foundation Bank!')
@@ -22,7 +42,7 @@ def main():
         match user_selection:
             case '1':
                 print(bank.logged_in)
-                login_result = bank.log_in(accounts) #returns an account if successful
+                login_result = bank.log_in(accounts_list) #returns an account if successful
                 if login_result != False:
                     current_account_class = Account(login_result)
                     bank.set_logged_in()
@@ -31,27 +51,22 @@ def main():
 
             case '2':
                 print('Create an account. Minimum initial deposit amount: $25')
-                #call create_account:
-                # account_info_dict = create_account()
-
-                #Create user class
-                # new_account = Account(account_info_dict)
-                #Save User
                 new_account_dict = bank.create_account()
                 current_account_class = Account(new_account_dict)
-                accounts.append(new_account_dict)
+                write_to_json(new_account_dict, accounts_list)
                 print('Account successfully created. You are now logged in!')                
                 bank.set_logged_in()
                 bank.set_logged_in_account(new_account_dict)
-                # print(bank.logged_in)
             case '3': 
                 print('exit')
+
                 bank.set_is_running()
                 return None
             case default:
                 print('Unrecognized input. Enter a number 1-3.')
 
     while bank.is_running == True and bank.logged_in == True:
+        accounts_list = read_parse_json()
         print('What would you like to do?')
         print('1) Deposit')
         print('2) Withdraw')
@@ -65,6 +80,8 @@ def main():
                 print(current_account_class)
                 current_account_class.deposit()
                 #save file
+                write_to_json(dict(current_account_class), accounts_list)
+               
             case '2': 
                 print(bank.logged_in_account)
                 print('You have chosen to withdraw')
@@ -84,6 +101,12 @@ def main():
             
 
     return None
+
+
+
+
+
+
     
 
 if __name__ == "__main__":
