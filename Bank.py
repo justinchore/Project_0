@@ -113,15 +113,27 @@ class Bank:
                 print(f'Password requirements not met. Please try again.')
             else: 
                 break
-        #validation here
         #place into account_info
         account_info["password"] = password
-        print('Initial Balance Deposit: ', end='')
-        balance = float("{:.2f}".format(float(input())))
+        while True:
+            try: 
+                print('Initial Balance Deposit: $', end='')
+                balance = input().strip()
+                validation_result = currency_validation(balance)
+                print(validation_result)
+                if validation_result != None:
+                    raise ValueError
+                
+            except ValueError as ve:
+                print(f'Invalid currency format. Examples: [25, 25.50, 25.00]')
+            except SyntaxError as se:
+                print(f'Initial deposit amount must be at least $25.')
+            else:
+                break
+        
         #validation/normalize here
         #place into account_info
-        account_info["balance"] = balance
-        
+        account_info["balance"] = float("{:.2f}".format(balance))
         #show user information, ask for confirmation 
         #save account! (Here or main?)
         print(account_info)
@@ -167,7 +179,8 @@ def no_numbers_validation(input):
  
 def currency_validation(input):
     #Allows $.
-    pattern = re.compile(r'^\$?(\d*(\d\.?|\.\d{1,2}))$')
+    # pattern = re.compile(r'^\$?(\d*(\d\.?|\.\d{1,2}))$')
+    pattern = re.compile(r'[1-9]\d*(\.\d\d)?(?![\d.])')
     match = re.match(pattern, input)
     return match
      
