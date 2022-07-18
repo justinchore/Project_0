@@ -65,7 +65,7 @@ def main():
             case '2':
                 print('Create an account. Minimum initial deposit amount: $25')
                 new_account_dict = bank.create_account(accounts_list) #{firstname:jsutin}
-                if new_account_dict == False:
+                if new_account_dict == None:
                     continue
                 current_account_class = Account(new_account_dict)
                 write_to_json(accounts_list, new_account_dict)

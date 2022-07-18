@@ -44,7 +44,7 @@ class Bank:
                 first_name = input().strip()
                 result = special_chars_validation(first_name)
                
-                if result != None:
+                if len(result) != 0:
                     raise ValueError
 
             except ValueError as ve:
@@ -59,7 +59,7 @@ class Bank:
                 last_name = input().strip()
                 result = special_chars_validation(last_name)
                
-                if result != None:
+                if len(result) != 0:
                     raise ValueError
 
             except ValueError as ve:
@@ -68,16 +68,18 @@ class Bank:
                 break
         #place into account_info
         account_info["last_name"] = last_name.capitalize()
+        #Email validation:
         while True:
             try:
-                print('Email', end='')
+                print('Email: ', end='')
                 email = input()
-                result = email_validation(input)
-                #search for duplicate email:
+                result = email_validation(email)
+                if result == None:
+                    raise ValueError
+                
                 if duplicate_email(email, accounts_list) == True:
                     raise SyntaxError
-                if result != None:
-                    raise ValueError
+             
             except SyntaxError as se:
                 print(f'Email already registered to an account. Please log in.')
                 return None
@@ -139,13 +141,15 @@ def special_chars_validation(input):
      return pattern.findall(input)
 
 def email_validation(input):
-    pattern = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
-    return pattern.fullmatch(pattern, input)
+    pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
+    match = re.fullmatch(pattern, input)
+    print(match)
+    return match
 
 def duplicate_email(input, accounts_list):
+    print(accounts_list)
     for acc in accounts_list:
-        if input.lower() in acc.values():
-            print('The email is already registered. Please log in.')
+        if input.lower() == acc['email']:
             return True
     return False
 
