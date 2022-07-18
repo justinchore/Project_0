@@ -155,16 +155,16 @@ def duplicate_email(input, accounts_list):
 
 '''
 TODO: 
-Check for the existence of account when creating
+Check for the existence of account when creating (DONE)
 Validations
-- Text input -> special characters  
+- Text input -> special characters (DONE)  
  - number check(cast into float with decimal)
  - withdraw check
- - email format check
- - capitalize name 
+ - email format check (DONE)
+ - capitalize name (DONE)
 Datetime -> field for account created at
 JSON
-Generate IDs with uuid4()
+Generate IDs with uuid4() (DONE)
 Hash Password/Hide Password -> token? 
 Colorama
 '''
