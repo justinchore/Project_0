@@ -7,6 +7,7 @@ class Bank:
         self._is_running = True
         self._logged_in = False
         self._logged_in_account = None
+        self._minimum_deposit_amount = 25
     
     @property
     def is_running(self):
@@ -43,12 +44,17 @@ class Bank:
                 print('First Name: ', end='')
                 first_name = input().strip()
                 result = special_chars_validation(first_name)
+                result2 = no_numbers_validation(first_name)
                
                 if len(result) != 0:
                     raise ValueError
+                if len(result2) != 0:
+                    raise SyntaxError
 
             except ValueError as ve:
                 print(f'Invalid characters detected: {result}. Please try again')
+            except SyntaxError as se:
+                print(f'Numbers detected: {result2}. Please try again')
             else:
                 break
         #place into account_info
@@ -58,12 +64,17 @@ class Bank:
                 print('Last Name: ', end='')
                 last_name = input().strip()
                 result = special_chars_validation(last_name)
+                result2 = no_numbers_validation(last_name)
                
                 if len(result) != 0:
                     raise ValueError
+                if len(result2) != 0:
+                    raise SyntaxError
 
             except ValueError as ve:
                 print(f'Invalid characters detected: {result}. Please try again')
+            except SyntaxError as se:
+                print(f'Numbers detected: {result2}. Please try again')
             else:
                 break
         #place into account_info
@@ -90,8 +101,18 @@ class Bank:
         
         #place into account_info
         account_info["email"] = email.lower()
-        print('Password: ', end='')
-        password = input()
+        while True:
+            try:
+                print('Please enter a password with the following: \n - At least 6 characters long\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='')
+                password = input()
+
+                if password_check(password) == None:
+                    raise ValueError
+                
+            except ValueError as ve:
+                print(f'Password requirements not met. Please try again.')
+            else: 
+                break
         #validation here
         #place into account_info
         account_info["password"] = password
@@ -139,7 +160,17 @@ class Bank:
 def special_chars_validation(input):
      pattern = re.compile(r"[@_!#$%^&*()<>?/\|}{~:]")
      return pattern.findall(input)
-
+ 
+def no_numbers_validation(input):
+     match = re.findall('[0-9]+', input)
+     return match
+ 
+def currency_validation(input):
+    #Allows $.
+    pattern = re.compile(r'^\$?(\d*(\d\.?|\.\d{1,2}))$')
+    match = re.match(pattern, input)
+    return match
+     
 def email_validation(input):
     pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
     match = re.fullmatch(pattern, input)
@@ -153,6 +184,12 @@ def duplicate_email(input, accounts_list):
             return True
     return False
 
+def password_check(input):
+    pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]{6,}$"
+    match = re.search(pattern, input)
+    return match
+    
+
 '''
 TODO: 
 Check for the existence of account when creating (DONE)
@@ -160,6 +197,8 @@ Validations
 - Text input -> special characters (DONE)  
  - number check(cast into float with decimal)
  - withdraw check
+ - password check: length, numbers, special char
+ - hash password -> hashlib or bcrypt
  - email format check (DONE)
  - capitalize name (DONE)
 Datetime -> field for account created at
