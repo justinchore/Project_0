@@ -37,6 +37,7 @@ class Bank:
     def create_account(self, accounts_list):
         account_info = {}
         account_info["id"] = str(uuid.uuid4())
+        #validation here
         while True:
             try:
                 print('First Name: ', end='')
@@ -50,23 +51,43 @@ class Bank:
                 print(f'Invalid characters detected: {result}. Please try again')
             else:
                 break
-        #validation here
         #place into account_info
-        account_info["first_name"] = first_name
-        print('Last Name: ', end='')
-        last_name = input()
-        #validation here
+        account_info["first_name"] = first_name.capitalize()
+        while True: 
+            try:
+                print('Last Name: ', end='')
+                last_name = input().strip()
+                result = special_chars_validation(last_name)
+               
+                if result != None:
+                    raise ValueError
+
+            except ValueError as ve:
+                print(f'Invalid characters detected: {result}. Please try again')
+            else:
+                break
         #place into account_info
-        account_info["last_name"] = last_name
-        print('Email: ', end='')
-        email = input().lower()
-        #search for duplicate email:
-        for acc in accounts_list:
-            if email in acc.values():
-                print('The email is already registered. Please log in.')
-                return False
+        account_info["last_name"] = last_name.capitalize()
+        while True:
+            try:
+                print('Email', end='')
+                email = input()
+                result = email_validation(input)
+                #search for duplicate email:
+                if duplicate_email(email, accounts_list) == True:
+                    raise SyntaxError
+                if result != None:
+                    raise ValueError
+            except SyntaxError as se:
+                print(f'Email already registered to an account. Please log in.')
+                return None
+            except ValueError as ve:
+                print(f'Invalid Email. Please Try again.')
+            else: 
+                break
+        
         #place into account_info
-        account_info["email"] = email
+        account_info["email"] = email.lower()
         print('Password: ', end='')
         password = input()
         #validation here
@@ -116,17 +137,23 @@ class Bank:
 def special_chars_validation(input):
      pattern = re.compile(r"[@_!#$%^&*()<>?/\|}{~:]")
      return pattern.findall(input)
-     
 
+def email_validation(input):
+    pattern = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
+    return pattern.fullmatch(pattern, input)
 
-
-
-
+def duplicate_email(input, accounts_list):
+    for acc in accounts_list:
+        if input.lower() in acc.values():
+            print('The email is already registered. Please log in.')
+            return True
+    return False
 
 '''
 TODO: 
 Check for the existence of account when creating
 Validations
+- Text input -> special characters  
  - number check(cast into float with decimal)
  - withdraw check
  - email format check
