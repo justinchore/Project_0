@@ -83,7 +83,7 @@ class Bank:
         while True:
             try:
                 print('Email: ', end='')
-                email = input()
+                email = input().strip()
                 result = email_validation(email)
                 if result == None:
                     raise ValueError
@@ -121,11 +121,13 @@ class Bank:
                 balance = input().strip()
                 validation_result = currency_validation(balance)
                 print(validation_result)
-                if validation_result != None:
+                if validation_result == None:
                     raise ValueError
+                if float(balance) < 25:
+                    raise SyntaxError
                 
             except ValueError as ve:
-                print(f'Invalid currency format. Examples: [25, 25.50, 25.00]')
+                print(f'Invalid currency format. Examples: [25, 25.50, 25.05]')
             except SyntaxError as se:
                 print(f'Initial deposit amount must be at least $25.')
             else:
@@ -133,7 +135,7 @@ class Bank:
         
         #validation/normalize here
         #place into account_info
-        account_info["balance"] = float("{:.2f}".format(balance))
+        account_info["balance"] = float("{:.2f}".format(float(balance)))
         #show user information, ask for confirmation 
         #save account! (Here or main?)
         print(account_info)
@@ -181,7 +183,7 @@ def currency_validation(input):
     #Allows $.
     # pattern = re.compile(r'^\$?(\d*(\d\.?|\.\d{1,2}))$')
     pattern = re.compile(r'[1-9]\d*(\.\d\d)?(?![\d.])')
-    match = re.match(pattern, input)
+    match =  re.fullmatch(pattern, input)
     return match
      
 def email_validation(input):
@@ -208,9 +210,9 @@ TODO:
 Check for the existence of account when creating (DONE)
 Validations
 - Text input -> special characters (DONE)  
- - number check(cast into float with decimal)
+ - number check(cast into float with decimal) (DONE)
  - withdraw check
- - password check: length, numbers, special char
+ - password check: length, numbers, special char (DONE)
  - hash password -> hashlib or bcrypt
  - email format check (DONE)
  - capitalize name (DONE)
