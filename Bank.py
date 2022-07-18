@@ -1,5 +1,6 @@
 import uuid
 import json
+import re
 
 class Bank:
     def __init__(self):
@@ -33,11 +34,22 @@ class Bank:
         else:
             self._logged_in = True
     
-    def create_account(self):
+    def create_account(self, accounts_list):
         account_info = {}
         account_info["id"] = str(uuid.uuid4())
-        print('First Name: ', end='')
-        first_name = input()
+        while True:
+            try:
+                print('First Name: ', end='')
+                first_name = input().strip()
+                result = special_chars_validation(first_name)
+               
+                if result != None:
+                    raise ValueError
+
+            except ValueError as ve:
+                print(f'Invalid characters detected: {result}. Please try again')
+            else:
+                break
         #validation here
         #place into account_info
         account_info["first_name"] = first_name
@@ -47,8 +59,12 @@ class Bank:
         #place into account_info
         account_info["last_name"] = last_name
         print('Email: ', end='')
-        email = input()
-        #validation here
+        email = input().lower()
+        #search for duplicate email:
+        for acc in accounts_list:
+            if email in acc.values():
+                print('The email is already registered. Please log in.')
+                return False
         #place into account_info
         account_info["email"] = email
         print('Password: ', end='')
@@ -57,7 +73,7 @@ class Bank:
         #place into account_info
         account_info["password"] = password
         print('Initial Balance Deposit: ', end='')
-        balance = int(input())
+        balance = float("{:.2f}".format(float(input())))
         #validation/normalize here
         #place into account_info
         account_info["balance"] = balance
@@ -97,6 +113,11 @@ class Bank:
         #if password == password, then toggle logged in, set current_account to the dictionary.
 
 
+def special_chars_validation(input):
+     pattern = re.compile(r"[@_!#$%^&*()<>?/\|}{~:]")
+     return pattern.findall(input)
+     
+
 
 
 
@@ -104,11 +125,9 @@ class Bank:
 
 '''
 TODO: 
-Deposit
-Withdraw
 Check for the existence of account when creating
 Validations
- - number check
+ - number check(cast into float with decimal)
  - withdraw check
  - email format check
  - capitalize name 

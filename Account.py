@@ -36,7 +36,7 @@ class Account:
 
     def deposit(self):
         print(f'You currently have ${self.balance} in your balance. Enter the amount for deposit: ', end="")
-        deposit_amount = int(input())
+        deposit_amount = float("{:.2f}".format(float(input())))
         #validate
         self.set_balance(deposit_amount)
         #add time thing here "...depositing to your account.."
@@ -44,7 +44,7 @@ class Account:
     
     def withdraw(self):
         print(f'You currently have ${self.balance} in your balance. Enter the amount for withdrawl: ', end="")
-        withdrawl_amount = int(input())
+        withdrawl_amount = float("{:.2f}".format(float(input())))
         #validate
         self.set_balance(withdrawl_amount * -1)
         #add timing thing here "...withdrawing from your account.."

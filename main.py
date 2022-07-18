@@ -1,5 +1,7 @@
 from Account import Account
 from Bank import Bank
+import decimal
+from decimal import Decimal
 import json
 
 
@@ -40,7 +42,7 @@ def main():
     bank = Bank()
     current_account_class = None
     accounts_list = read_parse_json()
-    print(bank.is_running, bank.logged_in)
+    print('Bank Program Running: ',bank.is_running, 'Is a user logged in?: ',bank.logged_in)
     while bank.is_running and not bank.logged_in:
         print('Welcome to Foundation Bank!')
         print('Please select an option from the menu')
@@ -62,7 +64,9 @@ def main():
 
             case '2':
                 print('Create an account. Minimum initial deposit amount: $25')
-                new_account_dict = bank.create_account() #{firstname:jsutin}
+                new_account_dict = bank.create_account(accounts_list) #{firstname:jsutin}
+                if new_account_dict == False:
+                    continue
                 current_account_class = Account(new_account_dict)
                 write_to_json(accounts_list, new_account_dict)
                 print('Current Account Class: ', current_account_class)
@@ -70,7 +74,7 @@ def main():
                 bank.set_logged_in() #True
                 bank.set_logged_in_account(new_account_dict)
             case '3': 
-                print('exit')
+                print('Exiting Bank...')
                 bank.set_is_running()
                 return None
             case default:
@@ -89,13 +93,13 @@ def main():
 
         match user_selection:
             case '1':
-                print('Current_account_class: ', current_account_class)
+                print(current_account_class)
                 current_account_class.deposit()
                 #save file
                 accounts_list = replace_account(current_account_class, accounts_list)
                 write_to_json(accounts_list)
             case '2': 
-                print(bank.logged_in_account)
+                print('Logged in Account: ' ,bank.logged_in_account)
                 current_account_class.withdraw()
                 #save file
                 accounts_list = replace_account(current_account_class, accounts_list)
@@ -106,18 +110,18 @@ def main():
                 print('You have chosen to log out and exit')
                 #sets logged in to False
                 bank.set_logged_in()
+                print('User Logged In: ', bank.logged_in)
                 #sets the logged in user dictionary value to none
                 bank.set_logged_in_account = None
                 #terminates program
                 bank.set_is_running()
+                print('Bank Program Running: ', bank.is_running)
             case default:
                 print('Unrecognized input. Enter a number 1-4.')
         
             
 
     return None
-
-
 
 
 
