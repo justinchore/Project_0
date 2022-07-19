@@ -1,7 +1,7 @@
 import uuid
 import json
 import re
-from CustomExceptions import InvalidCharactersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError
+from CustomExceptions import InvalidCharactersError, InvalidNumbersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError
 
 from validation_functions import special_chars_validation, no_numbers_validation, currency_validation, email_validation, duplicate_email, password_check
 
@@ -51,18 +51,21 @@ class Bank:
             try:
                 print('First Name: ', end='')
                 first_name = input().strip()
+                if first_name == '/q' or first_name == 'q':
+                    print('Exiting...')
+                    return None
                 result = special_chars_validation(first_name)
                 result2 = no_numbers_validation(first_name)
                
                 if len(result) != 0:
-                    raise ValueError
+                    raise InvalidCharactersError(result)
                 if len(result2) != 0:
-                    raise SyntaxError
+                    raise InvalidNumbersError(result2)
 
-            except ValueError as ve:
-                print(f'Invalid characters detected: {result}. Please try again')
-            except SyntaxError as se:
-                print(f'Numbers detected: {result2}. Please try again')
+            except InvalidCharactersError as ice:
+                    print(ice.message)
+            except InvalidNumbersError as ine:
+                    print(ine.message)
             else:
                 break
         #place into account_info
@@ -213,20 +216,4 @@ class Bank:
 #     return match
     
     
-'''
-TODO: 
- - Check for the existence of account when creating (DONE)
- - Text input -> special characters (DONE)  
- - number check(cast into float with decimal) (DONE)
- - password check: length, numbers, special char (DONE)
- - email format check (DONE)
- - capitalize name (DONE)
- 
- - Exit out whenever! Not logged in.
- - Create custom error class for homemade exceptions
- - Withdrawl/Deposit Validations
- - Datetime -> field for account created at
- - hash password -> hashlib or bcrypt
- - Colorama
 
-'''

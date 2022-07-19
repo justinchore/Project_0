@@ -64,7 +64,7 @@ def main():
                 print('User Logged in: ', bank.logged_in)
 
             case '2':
-                print('Create an account. Minimum initial deposit amount: $25')
+                print(f'Create an account! Minimum initial deposit amount is ${bank.minimum_deposit_amount}. Enter "/q" to exit')
                 new_account_dict = bank.create_account(accounts_list) #{firstname:jsutin}
                 if new_account_dict == None:
                     continue
