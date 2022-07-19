@@ -1,0 +1,2 @@
+Bank class variables:
+is_running, logged_in, logged_in_account
