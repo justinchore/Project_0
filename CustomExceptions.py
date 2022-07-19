@@ -1,6 +1,6 @@
 class InvalidCurrencyFormatError(Exception):
     def __init__(self):
-        self.message = "Not a valid format for currency. Accepted formats: [25, 25.50, 25.05"
+        self.message = "Not a valid format for currency. Accepted formats: [25, 25.50, 25.05] Please try again or enter '/q' to exit" 
     pass
 
 class InvalidEmailError(Exception):
@@ -20,10 +20,12 @@ class DuplicateEmailError(Exception):
 
 class InvalidPasswordError(Exception):
     def __init__(self):
-        self.message = 'Password requirements not met. Please try again.'
+        self.message = "Password requirements not met. Please try again or enter '/q' to exit"
         
             
-
+class InitDepositNotMetError(Exception):
+    def __init__(self):
+        self.message = "Initial deposit amount must be at least $25. Please try again or enter '/q' to exit"
 
 
 
