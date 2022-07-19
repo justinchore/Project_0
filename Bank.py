@@ -1,6 +1,8 @@
 import uuid
 import json
 import re
+from CustomExceptions import InvalidCharactersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError
+
 from validation_functions import special_chars_validation, no_numbers_validation, currency_validation, email_validation, duplicate_email, password_check
 
 class Bank:
@@ -35,6 +37,11 @@ class Bank:
             self._logged_in = False
         else:
             self._logged_in = True
+    
+    @property
+    def minimum_deposit_amount(self):
+        return self._minimum_deposit_amount
+    
     
     def create_account(self, accounts_list):
         account_info = {}
@@ -130,7 +137,7 @@ class Bank:
             except ValueError as ve:
                 print(f'Invalid currency format. Examples: [25, 25.50, 25.05]')
             except SyntaxError as se:
-                print(f'Initial deposit amount must be at least $25.')
+                print(f'Initial deposit amount must be at least {self.minimum_deposit_amount}.')
             else:
                 break
         
