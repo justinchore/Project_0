@@ -74,6 +74,9 @@ class Bank:
             try:
                 print('Last Name: ', end='')
                 last_name = input().strip()
+                if last_name == '/q' or last_name == 'q':
+                    print('Exiting...')
+                    return None
                 result = special_chars_validation(last_name)
                 result2 = no_numbers_validation(last_name)
                
@@ -95,6 +98,9 @@ class Bank:
             try:
                 print('Email: ', end='')
                 email = input().strip()
+                if email == '/q' or email == 'q':
+                    print('Exiting...')
+                    return None
                 result = email_validation(email)
                 if result == None:
                     raise ValueError
@@ -116,6 +122,9 @@ class Bank:
             try:
                 print('Please enter a password with the following: \n - At least 6 characters long\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='')
                 password = input()
+                if password == '/q' or password == 'q':
+                    print('Exiting...')
+                    return None
 
                 if password_check(password) == None:
                     raise ValueError
@@ -130,6 +139,9 @@ class Bank:
             try: 
                 print('Initial Balance Deposit: $', end='')
                 balance = input().strip()
+                if balance == '/q' or balance == 'q':
+                    print('Exiting...')
+                    return None
                 validation_result = currency_validation(balance)
                 print(validation_result)
                 if validation_result == None:
