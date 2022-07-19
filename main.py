@@ -1,6 +1,6 @@
-from ast import Or
 from Account import Account
 from Bank import Bank
+from output_functions import line_generator
 # import decimal
 # from decimal import Decimal
 import json
@@ -45,7 +45,7 @@ def main():
     accounts_list = read_parse_json()
     print('Bank Program Running: ',bank.is_running, 'Is a user logged in?: ',bank.logged_in)
     while bank.is_running and not bank.logged_in:
-        print('Welcome to Foundation Bank!')
+        print('Welcome to Foundation Bank!', flush=True)
         print('Please select an option from the menu')
         print('1: Log in to your account')
         print('2: Create a Foundation Bank account')

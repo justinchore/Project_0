@@ -1,6 +1,12 @@
 import uuid
 import json
 import re
+import os
+# from colorama import Fore, Back, Style
+from time import sleep
+
+from output_functions import format_account_dict, line_generator
+
 from CustomExceptions import InvalidCharactersError, InvalidNumbersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError
 
 from validation_functions import special_chars_validation, no_numbers_validation, currency_validation, email_validation, duplicate_email, password_check
@@ -46,6 +52,7 @@ class Bank:
     def create_account(self, accounts_list):
         account_info = {}
         account_info["id"] = str(uuid.uuid4())
+        line_generator()
         #validation here
         while True:
             try:
@@ -58,18 +65,23 @@ class Bank:
                 result2 = no_numbers_validation(first_name)
                
                 if len(result) != 0:
+                    line_generator(10)
                     raise InvalidCharactersError(result)
                 if len(result2) != 0:
+                    line_generator(10)
                     raise InvalidNumbersError(result2)
 
             except InvalidCharactersError as ice:
-                    print(ice.message)
+                print(ice.message)
+                    
             except InvalidNumbersError as ine:
-                    print(ine.message)
+                print(ine.message)
+                    
             else:
                 break
         #place into account_info
         account_info["first_name"] = first_name.capitalize()
+        line_generator()
         while True: 
             try:
                 print('Last Name: ', end='')
@@ -81,21 +93,25 @@ class Bank:
                 result2 = no_numbers_validation(last_name)
                
                 if len(result) != 0:
-                    raise ValueError
+                    line_generator(10)
+                    raise InvalidCharactersError(result)
                 if len(result2) != 0:
-                    raise SyntaxError
+                    line_generator(10)
+                    raise InvalidNumbersError(result2)
 
-            except ValueError as ve:
-                print(f'Invalid characters detected: {result}. Please try again')
-            except SyntaxError as se:
-                print(f'Numbers detected: {result2}. Please try again')
+            except InvalidCharactersError as ice:
+                print(ice.message)
+            except InvalidNumbersError as ine:
+                print(ine.message)
             else:
                 break
         #place into account_info
         account_info["last_name"] = last_name.capitalize()
         #Email validation:
+        line_generator()
         while True:
             try:
+               
                 print('Email: ', end='')
                 email = input().strip()
                 if email == '/q' or email == 'q':
@@ -103,21 +119,24 @@ class Bank:
                     return None
                 result = email_validation(email)
                 if result == None:
-                    raise ValueError
+                    line_generator(10)
+                    raise InvalidEmailError
                 
                 if duplicate_email(email, accounts_list) == True:
-                    raise SyntaxError
+                    line_generator(10)
+                    raise DuplicateEmailError
              
-            except SyntaxError as se:
-                print(f'Email already registered to an account. Please log in.')
+            except InvalidEmailError as iee:
+                print(iee.message)
+            except DuplicateEmailError as dee:
+                print(dee.message)
                 return None
-            except ValueError as ve:
-                print(f'Invalid Email. Please Try again.')
             else: 
                 break
         
         #place into account_info
         account_info["email"] = email.lower()
+        line_generator()
         while True:
             try:
                 print('Please enter a password with the following: \n - At least 6 characters long\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='')
@@ -127,14 +146,17 @@ class Bank:
                     return None
 
                 if password_check(password) == None:
-                    raise ValueError
+                    line_generator(10)
+                    raise InvalidPasswordError
                 
-            except ValueError as ve:
-                print(f'Password requirements not met. Please try again.')
+            except InvalidPasswordError as ipe:
+                
+                print(ipe.message)
             else: 
                 break
         #place into account_info
         account_info["password"] = password
+        line_generator()
         while True:
             try: 
                 print('Initial Balance Deposit: $', end='')
@@ -145,24 +167,38 @@ class Bank:
                 validation_result = currency_validation(balance)
                 print(validation_result)
                 if validation_result == None:
-                    raise ValueError
+                    line_generator(10)
+                    raise InvalidCurrencyFormatError
                 if float(balance) < 25:
-                    raise SyntaxError
+                    line_generator(10)
+                    raise InitDepositNotMetError
                 
-            except ValueError as ve:
-                print(f'Invalid currency format. Examples: [25, 25.50, 25.05]')
-            except SyntaxError as se:
-                print(f'Initial deposit amount must be at least {self.minimum_deposit_amount}.')
+            except InvalidCurrencyFormatError as icf:
+                print(icf.message)
+            except InitDepositNotMetError as ednme:
+                print(ednme.message)
             else:
                 break
         
         #validation/normalize here
         #place into account_info
         account_info["balance"] = float("{:.2f}".format(float(balance)))
-        #show user information, ask for confirmation 
-        #save account! (Here or main?)
-        print(account_info)
-        return account_info
+        #show user information, ask for confirmation
+        print('Outputting New Account Information....')
+        line_generator()
+        while True:
+            try:
+                format_account_dict(account_info)
+                save_confirm = input("Does everything look correct? /y to confirm, /n to exit: ")
+                if (save_confirm.lower() == 'n' or save_confirm == '/n') :
+                    return None
+                elif (save_confirm.lower() == 'y' or save_confirm == '/y'):
+                    return account_info
+                else:
+                    raise ValueError
+            except ValueError as ve:
+                print("Invalid input. Please enter 'y' to create account or 'n' to exit.")
+                
     
     def log_in(self, accounts_list):
         #[{}, {}, {}]
@@ -186,6 +222,8 @@ class Bank:
             
         print('Log in failed. Check your credentials and try again')
         return False
+    
+
         
             
         #iterate through the list of accounts
