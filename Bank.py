@@ -209,16 +209,21 @@ class Bank:
             try:
                 print('Email: ', end='' )
                 input_email = input().strip().lower()
+                if input_email == '/q' or input_email == 'q':
+                    print('Exiting...')
+                    return False
                 print('Password: ', end='')
                 input_password = input()
+                if input_password.lower() == '/q' or input_password.lower() == 'q':
+                    print('Exiting...')
+                    return False 
+                
                 email_authentication_result = self.is_email_registered(input_email, accounts_list)
                 
-                if email_authentication_result != False:
-                    pass
-                else:
+                if email_authentication_result == False:
                     raise EmailNotRegisteredError
                 
-                if email_authentication_result.password == input_password:
+                if email_authentication_result['password'] == input_password:
                     first_name_str = email_authentication_result.get('first_name')
                     last_name_str = email_authentication_result.get('last_name')
                     print(f'Welcome {first_name_str} {last_name_str}!')
@@ -229,24 +234,8 @@ class Bank:
                        
             except EmailNotRegisteredError as ere:
                 print(ere.message)
-                pass
-            else:
-                break
-        
-
-        for acc in accounts_list:
-            print(acc.values())
-            if input_email in acc.values():
-                print(acc)
-                if acc["password"] == input_password:
-                    print('You have successfully logged in to your account.')
-                    return acc
-                else:
-                    print('Log in failed. Check your credentials and try again')
-                    return False
-            
-        print('Log in failed. Check your credentials and try again')
-        return False
+            except PasswordAuthenticationError as pae:
+                print(pae.message)     
     
     def is_email_registered(self, email, accounts_list):
         for acc in accounts_list:

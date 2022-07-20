@@ -35,11 +35,11 @@ class InitDepositNotMetError(Exception):
 
 class EmailNotRegisteredError(Exception):
     def __init__(self):
-        self.message = "The email that you entered is not registered to an account.\n Create an account: /y\nBack to main menu: /n"
+        self.message = "The email that you entered is not registered to an account. Please try again or enter '/q' to exit"
         
 class PasswordAuthenticationError(Exception):
     def __init__(self):
-        self.message = "Authentication failed.\nTry again: /y\nBack to main menu: /n"
+        self.message = "Authentication failed. Please Try again or enter '/q' to exit"
         
 
 '''
