@@ -7,7 +7,7 @@ from time import sleep
 
 from output_functions import format_account_dict, line_generator
 
-from CustomExceptions import InvalidCharactersError, InvalidNumbersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError
+from CustomExceptions import InvalidCharactersError, InvalidNumbersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError, EmailNotRegisteredError, PasswordAuthenticationError
 
 from validation_functions import special_chars_validation, no_numbers_validation, currency_validation, email_validation, duplicate_email, password_check
 
@@ -203,12 +203,36 @@ class Bank:
     def log_in(self, accounts_list):
         #[{}, {}, {}]
         print('Accounts List: ', accounts_list)
-        print('Log in to your account')
+        print("Log in to your account or enter '/q' to exit")
         line_generator()
-        print('Email: ', end='' )
-        input_email = input()
-        print('Password: ', end='')
-        input_password = input()
+        while True:
+            try:
+                print('Email: ', end='' )
+                input_email = input().strip().lower()
+                print('Password: ', end='')
+                input_password = input()
+                email_authentication_result = self.is_email_registered(input_email, accounts_list)
+                
+                if email_authentication_result != False:
+                    pass
+                else:
+                    raise EmailNotRegisteredError
+                
+                if email_authentication_result.password == input_password:
+                    first_name_str = email_authentication_result.get('first_name')
+                    last_name_str = email_authentication_result.get('last_name')
+                    print(f'Welcome {first_name_str} {last_name_str}!')
+                    return email_authentication_result
+                else:
+                    raise PasswordAuthenticationError
+                
+                       
+            except EmailNotRegisteredError as ere:
+                print(ere.message)
+                pass
+            else:
+                break
+        
 
         for acc in accounts_list:
             print(acc.values())
@@ -224,13 +248,29 @@ class Bank:
         print('Log in failed. Check your credentials and try again')
         return False
     
+    def is_email_registered(self, email, accounts_list):
+        for acc in accounts_list:
+            if email.lower() in acc.values():
+                return acc
+            
+        return False
+        
+        
 
         
             
-        #iterate through the list of accounts
-        #if email is not in account ->print user does not exist
-        #if email is in account, check password of that dictionary! 
-        #if password == password, then toggle logged in, set current_account to the dictionary.
+        
+        
+        
+        
+        
+        
+        
+        
+#iterate through the list of accounts
+# #if email is not in account ->print user does not exist
+#if email is in account, check password of that dictionary! 
+#if password == password, then toggle logged in, set current_account to the dictionary.
 
 
 # def special_chars_validation(input):

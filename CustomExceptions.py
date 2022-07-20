@@ -33,7 +33,14 @@ class InitDepositNotMetError(Exception):
     def __init__(self):
         self.message = "Initial deposit amount must be at least $25. Please try again or enter '/q' to exit"
 
-
+class EmailNotRegisteredError(Exception):
+    def __init__(self):
+        self.message = "The email that you entered is not registered to an account.\n Create an account: /y\nBack to main menu: /n"
+        
+class PasswordAuthenticationError(Exception):
+    def __init__(self):
+        self.message = "Authentication failed.\nTry again: /y\nBack to main menu: /n"
+        
 
 '''
 class NotCurrencyFormatError(Exception):
