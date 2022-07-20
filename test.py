@@ -29,11 +29,11 @@ TODO:
  - email format check (DONE)
  - capitalize name (DONE)
  
- - Exit out whenever! Not logged in.(WORKING - Create is done, need to do log in)
- - Create custom error class for homemade exceptions (WORKING, Create is done, need to login)
- - Withdrawl/Deposit Validations
- - Datetime -> field for account created at (Optional)
- - hash password -> hashlib or bcrypt (Optional)
+ - Exit out whenever! Not logged in.(WORKING - Deposit, Withdrawl)
+ - Create custom error class for homemade exceptions (WORKING, Deposit, Withdrawl)
+ - Withdrawl/Deposit Validations (WORKING)
+ - Datetime -> field for account created at (Maybe)
+ - hash password -> hashlib or bcrypt (Maybe)
  - Colorama (No)
 
 '''
