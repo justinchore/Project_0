@@ -204,6 +204,7 @@ class Bank:
         #[{}, {}, {}]
         print('Accounts List: ', accounts_list)
         print('Log in to your account')
+        line_generator()
         print('Email: ', end='' )
         input_email = input()
         print('Password: ', end='')
