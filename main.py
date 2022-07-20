@@ -94,7 +94,6 @@ def main():
 
         match user_selection:
             case '1':
-                print(current_account_class)
                 current_account_class.deposit()
                 #save file
                 accounts_list = replace_account(current_account_class, accounts_list)

@@ -33,4 +33,10 @@ def password_check(input):
     match = re.search(pattern, input)
     return match
     
+def withdrawl_amount_check(withdrawl_amount, account_balance):
+    converted_withdrawl_amount = withdrawl_amount * -1
+    if account_balance + converted_withdrawl_amount < 0:
+        return False
+    return True
+    
     

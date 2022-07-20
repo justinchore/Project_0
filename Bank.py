@@ -164,7 +164,7 @@ class Bank:
                 if balance == '/q' or balance == 'q':
                     print('Exiting...')
                     return None
-                validation_result = currency_validation(balance)
+                validation_result = currency_validation(float(balance))
                 print(validation_result)
                 if validation_result == None:
                     line_generator(10)
