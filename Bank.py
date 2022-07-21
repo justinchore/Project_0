@@ -139,7 +139,7 @@ class Bank:
         line_generator()
         while True:
             try:
-                print('Please enter a password with the following: \n - At least 6 characters long\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='\n\n')
+                print('Please enter a password with the following: \n - Length: 8-18 characters long\n- Special character\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='\n\n')
                 password = input()
                 if password == '/q' or password == 'q':
                     print('Exiting...')
@@ -155,7 +155,7 @@ class Bank:
             else: 
                 break
         #place into account_info
-        account_info["password"] = password
+        account_info["password"] = hash_password(password).decode('utf-8')
         line_generator()
         while True:
             try: 
@@ -223,7 +223,8 @@ class Bank:
                 if email_authentication_result == False:
                     raise EmailNotRegisteredError
                 
-                if email_authentication_result['password'] == input_password:
+                if check_password_bcrypt(input_password, email_authentication_result['password']):
+                # if email_authentication_result['password'] == input_password:
                     first_name_str = email_authentication_result.get('first_name')
                     last_name_str = email_authentication_result.get('last_name')
                     print(f'Welcome {first_name_str} {last_name_str}!')

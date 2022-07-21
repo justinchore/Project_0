@@ -29,7 +29,7 @@ def duplicate_email(input, accounts_list):
     return False
 
 def password_check(input):
-    pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]{6,}$"
+    pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,18}$"
     match = re.search(pattern, input)
     return match
     
@@ -45,6 +45,7 @@ def hash_password(input):
     return bcrypt.hashpw(bytes, salt)
 
 
-def check_password_bcrypt(pass_attempt, correct_hashed):
-    return correct_hashed == bcrypt.hashpw(pass_attempt.encode('utf-8'), correct_hashed)
+def check_password_bcrypt(attempt, password_string):
+    password_str_byte = password_string.encode('utf-8')
+    return bcrypt.checkpw(attempt.encode('utf-8'), password_str_byte)
     

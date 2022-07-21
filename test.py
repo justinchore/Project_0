@@ -34,19 +34,21 @@ import bcrypt
 # print(currency_validation('10.04'))
 # print(currency_validation('.56'))
 
-def hash_password(input):
-    bytes = input.encode('utf-8')
-    salt = bcrypt.gensalt()
-    return bcrypt.hashpw(bytes, salt)
+# def hash_password(input):
+#     bytes = input.encode('utf-8')
+#     salt = bcrypt.gensalt()
+#     return bcrypt.hashpw(bytes, salt)
 
-def check_password(pass_attempt, correct_hashed):
-    return correct_hashed == bcrypt.hashpw(pass_attempt.encode('utf-8'), correct_hashed)
+# def check_password(pass_attempt, correct_hashed):
+#     return correct_hashed.encode('utf-8') == bcrypt.hashpw(pass_attempt.encode('utf-8'), correct_hashed.encode('utf-8'))
        
-   
-   
 
-# print(hash_password('Password123'))
-print(check_password('Password123', b'$2b$12$gvqAu2TRqK8qOZLhSWtL2OhdPdxUryjJ6hhvIgckp4R7/rcHBDzzC'))
+# # print(hash_password('Password123'))
+# print(check_password('Password123', b'$2b$12$gvqAu2TRqK8qOZLhSWtL2OhdPdxUryjJ6hhvIgckp4R7/rcHBDzzC'))
+
+# print("b'$2b$12$0Vke0qvroJaT8hKtTyulCeMxuyvHR21/NWlIf8Qn5FySkZ.KtG.Ke'".encode('utf-8'))
+string = "b'$2b$12$0Vke0qvroJaT8hKtTyulCeMxuyvHR21/NWlIf8Qn5FySkZ.KtG.Ke'"
+print(bytes(string[1:], 'utf-8'))
 '''
 TODO: 
  - Check for the existence of account when creating (DONE)
