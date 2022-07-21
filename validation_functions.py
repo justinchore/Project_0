@@ -1,4 +1,5 @@
 import re
+import bcrypt
 
 def special_chars_validation(input):
      pattern = re.compile(r"[@_!#$%^&*()<>?/\|}{~:]")
@@ -37,5 +38,13 @@ def withdrawl_amount_check(withdrawl_amount, account_balance):
     if account_balance + converted_withdrawl_amount < 0:
         return False
     return True
-    
+
+def hash_password(input):
+    bytes = input.encode('utf-8')
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(bytes, salt)
+
+
+def check_password_bcrypt(pass_attempt, correct_hashed):
+    return correct_hashed == bcrypt.hashpw(pass_attempt.encode('utf-8'), correct_hashed)
     

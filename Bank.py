@@ -9,7 +9,7 @@ from output_functions import format_account_dict, line_generator
 
 from CustomExceptions import InvalidCharactersError, InvalidNumbersError, InvalidEmailError, DuplicateEmailError, InvalidPasswordError, InvalidCurrencyFormatError, InitDepositNotMetError, EmailNotRegisteredError, PasswordAuthenticationError
 
-from validation_functions import special_chars_validation, no_numbers_validation, currency_validation, email_validation, duplicate_email, password_check
+from validation_functions import special_chars_validation, no_numbers_validation, currency_validation, email_validation, duplicate_email, password_check, hash_password, check_password_bcrypt
 
 class Bank:
     def __init__(self):
