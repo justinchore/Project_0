@@ -1,4 +1,5 @@
 import re
+import bcrypt
 
 # def password_check(input):
 #     pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^\W_]{6,}$"
@@ -33,7 +34,19 @@ import re
 # print(currency_validation('10.04'))
 # print(currency_validation('.56'))
 
+def hash_password(input):
+    bytes = input.encode('utf-8')
+    salt = bcrypt.gensalt()
+    return bcrypt.hashpw(bytes, salt)
 
+def check_password(pass_attempt, correct_hashed):
+    return correct_hashed == bcrypt.hashpw(pass_attempt.encode('utf-8'), correct_hashed)
+       
+   
+   
+
+# print(hash_password('Password123'))
+print(check_password('Password123', b'$2b$12$gvqAu2TRqK8qOZLhSWtL2OhdPdxUryjJ6hhvIgckp4R7/rcHBDzzC'))
 '''
 TODO: 
  - Check for the existence of account when creating (DONE)
@@ -49,10 +62,5 @@ TODO:
  - Datetime -> field for account created at (Maybe)
  - hash password -> hashlib or bcrypt (Maybe)
  - Colorama (No)
-
-'''
-
-'''
-
 
 '''
