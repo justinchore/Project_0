@@ -18,11 +18,10 @@ def currency_validation(input):
 def email_validation(input):
     pattern = re.compile(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b')
     match = re.fullmatch(pattern, input)
-    print(match)
     return match
 
 def duplicate_email(input, accounts_list):
-    print(accounts_list)
+    #print(accounts_list)
     for acc in accounts_list:
         if input.lower() == acc['email']:
             return True

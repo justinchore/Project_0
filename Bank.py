@@ -72,10 +72,10 @@ class Bank:
                     raise InvalidNumbersError(result2)
 
             except InvalidCharactersError as ice:
-                print(ice.message)
+                print(ice.message, end="\n\n")
                     
             except InvalidNumbersError as ine:
-                print(ine.message)
+                print(ine.message, end="\n\n")
                     
             else:
                 break
@@ -100,9 +100,9 @@ class Bank:
                     raise InvalidNumbersError(result2)
 
             except InvalidCharactersError as ice:
-                print(ice.message)
+                print(ice.message, end="\n\n")
             except InvalidNumbersError as ine:
-                print(ine.message)
+                print(ine.message, end="\n\n")
             else:
                 break
         #place into account_info
@@ -127,9 +127,9 @@ class Bank:
                     raise DuplicateEmailError
              
             except InvalidEmailError as iee:
-                print(iee.message)
+                print(iee.message, end="\n\n")
             except DuplicateEmailError as dee:
-                print(dee.message)
+                print(dee.message, end="\n\n")
                 return None
             else: 
                 break
@@ -139,7 +139,7 @@ class Bank:
         line_generator()
         while True:
             try:
-                print('Please enter a password with the following: \n - At least 6 characters long\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='')
+                print('Please enter a password with the following: \n - At least 6 characters long\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='\n\n')
                 password = input()
                 if password == '/q' or password == 'q':
                     print('Exiting...')
@@ -151,7 +151,7 @@ class Bank:
                 
             except InvalidPasswordError as ipe:
                 
-                print(ipe.message)
+                print(ipe.message, end="\n\n")
             else: 
                 break
         #place into account_info
@@ -164,8 +164,8 @@ class Bank:
                 if balance == '/q' or balance == 'q':
                     print('Exiting...')
                     return None
-                validation_result = currency_validation(float(balance))
-                print(validation_result)
+                validation_result = currency_validation(balance)
+                # print(validation_result)
                 if validation_result == None:
                     line_generator(10)
                     raise InvalidCurrencyFormatError
@@ -174,9 +174,9 @@ class Bank:
                     raise InitDepositNotMetError
                 
             except InvalidCurrencyFormatError as icf:
-                print(icf.message)
+                print(icf.message, end="\n\n")
             except InitDepositNotMetError as ednme:
-                print(ednme.message)
+                print(ednme.message, end="\n\n")
             else:
                 break
         
@@ -233,9 +233,9 @@ class Bank:
                 
                        
             except EmailNotRegisteredError as ere:
-                print(ere.message)
+                print(ere.message, end="\n\n")
             except PasswordAuthenticationError as pae:
-                print(pae.message)     
+                print(pae.message, end="\n\n")     
     
     def is_email_registered(self, email, accounts_list):
         for acc in accounts_list:
