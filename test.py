@@ -47,6 +47,7 @@ import bcrypt
 # print(check_password('Password123', b'$2b$12$gvqAu2TRqK8qOZLhSWtL2OhdPdxUryjJ6hhvIgckp4R7/rcHBDzzC'))
 
 # print("b'$2b$12$0Vke0qvroJaT8hKtTyulCeMxuyvHR21/NWlIf8Qn5FySkZ.KtG.Ke'".encode('utf-8'))
+byte = b''
 string = "b'$2b$12$0Vke0qvroJaT8hKtTyulCeMxuyvHR21/NWlIf8Qn5FySkZ.KtG.Ke'"
 print(bytes(string[1:], 'utf-8'))
 '''
