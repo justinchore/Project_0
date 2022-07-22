@@ -8,12 +8,8 @@
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
-<!-- * [Usage](#usage) -->
-<!-- * [Project Status](#project-status) -->
 * [Room for Improvement](#room-for-improvement)
-<!-- * [Acknowledgements](#acknowledgements) -->
 * [Contact](#contact)
-<!-- * [License](#license) -->
 
 
 ## General Information
@@ -68,7 +64,7 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
+<!-- Include areas you believe need improvement / could be improved. Also add TODOs for future development. -->
 
 Room for improvement:
 - JSON file formatting 1
