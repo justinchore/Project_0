@@ -4,6 +4,7 @@ from output_functions import line_generator
 # import decimal
 # from decimal import Decimal
 import json
+import os
 
 
 # # accounts = [] #Get Data here
@@ -19,7 +20,7 @@ def write_to_json(list, account_dict=None):
         if account_dict != None:
             list.append(account_dict)
             
-        print(list)
+        #print(list)
         myfile.write(json.dumps(list))
 
 def replace_account(account_class, list):
@@ -39,12 +40,13 @@ def get_image_from_txt(filename):
 
 def main():
 
-    print(get_image_from_txt('bank-banner.txt'))
     bank = Bank()
     current_account_class = None
     accounts_list = read_parse_json()
-    print('Bank Program Running: ',bank.is_running, 'Is a user logged in?: ',bank.logged_in)
+    # print('Bank Program Running: ',bank.is_running, 'Is a user logged in?: ',bank.logged_in)
     while bank.is_running and not bank.logged_in:
+        os.system('cls')
+        get_image_from_txt('bank-banner.txt')
         print('Welcome to Foundation Bank!', flush=True)
         print('Please select an option from the menu')
         print('1: Log in to your account')
@@ -55,13 +57,13 @@ def main():
 
         match user_selection:
             case '1':
-                print('User Logged in: ', bank.logged_in)
+                # print('User Logged in: ', bank.logged_in)
                 login_result = bank.log_in(accounts_list) #returns an account if successful
                 if login_result != False:
                     current_account_class = Account(login_result)
                     bank.set_logged_in()
                     bank.set_logged_in_account (current_account_class)
-                print('User Logged in: ', bank.logged_in)
+                # print('User Logged in: ', bank.logged_in)
 
             case '2':
                 print(f'Create an account! Minimum initial deposit amount is ${bank.minimum_deposit_amount}. Enter "/q" to exit')
@@ -70,13 +72,14 @@ def main():
                     continue
                 current_account_class = Account(new_account_dict)
                 write_to_json(accounts_list, new_account_dict)
-                print('Current Account Class: ', current_account_class)
+                # print('Current Account Class: ', current_account_class)
                 print('Account successfully created. You are now logged in!')                
                 bank.set_logged_in() #True
                 bank.set_logged_in_account(new_account_dict)
             case '3': 
                 print('Exiting Bank...')
                 bank.set_is_running()
+                os.system('cls')
                 return None
             case default:
                 print('Unrecognized input. Enter a number 1-3.')
@@ -99,23 +102,25 @@ def main():
                 accounts_list = replace_account(current_account_class, accounts_list)
                 write_to_json(accounts_list)
             case '2': 
-                print('Logged in Account: ' ,bank.logged_in_account)
+                # print('Logged in Account: ' ,bank.logged_in_account)
                 current_account_class.withdraw()
                 #save file
                 accounts_list = replace_account(current_account_class, accounts_list)
                 write_to_json(accounts_list)
             case '3':
-                print(current_account_class)
+                os.system('cls')
+                print(current_account_class, end='\n\n')
             case '4': 
                 print('You have chosen to log out and exit')
                 #sets logged in to False
                 bank.set_logged_in()
-                print('User Logged In: ', bank.logged_in)
+                # print('User Logged In: ', bank.logged_in)
                 #sets the logged in user dictionary value to none
                 bank.set_logged_in_account = None
                 #terminates program
                 bank.set_is_running()
-                print('Bank Program Running: ', bank.is_running)
+                # print('Bank Program Running: ', bank.is_running)
+                os.system('cls')
             case default:
                 print('Unrecognized input. Enter a number 1-4.')
         

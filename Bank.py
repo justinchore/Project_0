@@ -139,7 +139,7 @@ class Bank:
         line_generator()
         while True:
             try:
-                print('Please enter a password with the following: \n - Length: 8-18 characters long\n- Special character\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='\n\n')
+                print('Please enter a password with the following: \n - Length: 8-18 characters long\n - Special character\n - Contains a lowercase letter\n - Contains an uppercase letter\n - Contains a number\n Enter password: ', end='\n\n')
                 password = input()
                 if password == '/q' or password == 'q':
                     print('Exiting...')
@@ -202,7 +202,7 @@ class Bank:
     
     def log_in(self, accounts_list):
         #[{}, {}, {}]
-        print('Accounts List: ', accounts_list)
+        # print('Accounts List: ', accounts_list)
         print("Log in to your account or enter '/q' to exit")
         line_generator()
         while True:
@@ -227,6 +227,7 @@ class Bank:
                 # if email_authentication_result['password'] == input_password:
                     first_name_str = email_authentication_result.get('first_name')
                     last_name_str = email_authentication_result.get('last_name')
+                    os.system('cls')
                     print(f'Welcome {first_name_str} {last_name_str}!')
                     return email_authentication_result
                 else:

@@ -46,7 +46,7 @@ class Account:
                 print('Exiting...')
                 return None
             validation_result = currency_validation(deposit_amount)
-            print(validation_result)
+            # print(validation_result)
             if validation_result == None:
                 line_generator(10)
                 raise InvalidCurrencyFormatError
@@ -68,7 +68,7 @@ class Account:
                 print('Exiting....')
                 return None
             validation_result = currency_validation(withdrawl_amount)
-            print(validation_result)
+            # print(validation_result)
             if validation_result == None:
                 raise InvalidCurrencyFormatError
             if float(withdrawl_amount) <= 0:
