@@ -67,7 +67,7 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 <!-- Include areas you believe need improvement / could be improved. Also add TODOs for future development. -->
 
 Room for improvement:
-- JSON file formatting 1
+- JSON file formatting
 - Refratoring try except blocks for input errors
 
 To do:
