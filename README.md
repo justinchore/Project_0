@@ -2,14 +2,14 @@
 > Simple command line interface for account creation, login, and deposit/withdrawls
 
 
-## Table of Contents
+<!-- ## Table of Contents
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
 * [Room for Improvement](#room-for-improvement)
-* [Contact](#contact)
+* [Contact](#contact) -->
 
 
 ## General Information
