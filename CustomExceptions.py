@@ -43,7 +43,7 @@ class PasswordAuthenticationError(Exception):
         
 class WithdrawlAmountError(Exception):
     def __init__(self):
-        self.message = "The withdrawl amount is greater than your balance, less than 0, or equal to 0. Please try again or enter '/q to exit."
+        self.message = "The withdrawl amount is greater than your balance. Please try again or enter '/q to exit."
         
 '''
 class NotCurrencyFormatError(Exception):
