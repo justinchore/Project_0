@@ -24,7 +24,7 @@
 
 
 ## Features
-List the ready features here:
+<!-- List the ready features here: -->
 - User input checking with Regex
 - Password hashing with bcrypt
 - Persisting data with JSON
