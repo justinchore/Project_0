@@ -68,7 +68,7 @@ Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are
 
 Room for improvement:
 - JSON file formatting
-- Refratoring try except blocks for input errors
+- Refactoring try except blocks for input errors
 
 To do:
 - Account deletion
