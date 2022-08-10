@@ -13,7 +13,7 @@
 
 
 ## General Information
-- This project is a command line interface for fictional bank.
+- This project is a command line interface for a fictional bank.
 - The goal of this project is to demonstrate file read/write capabilities, user input handling   and object orientated programming. 
 <!-- - Why did you undertake it? -->
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
